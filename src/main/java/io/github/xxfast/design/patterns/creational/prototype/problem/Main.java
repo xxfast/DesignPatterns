@@ -1,18 +1,30 @@
-package codes.isuru.java.creational.prototype.problem;
+package io.github.xxfast.design.patterns.creational.prototype.problem;
 
-class Car {
-    private final int cost;
-    private final long mileage;
+import io.github.xxfast.design.patterns.creational.prototype.Ingredient;
 
-    public Car(int cost, long mileage) {
-        this.cost = cost;
-        this.mileage = mileage;
-    }
+import java.util.List;
+
+import static io.github.xxfast.design.patterns.creational.prototype.Ingredient.*;
+
+class Dish {
+  private String name;
+  private final List<Ingredient> ingredients;
+  private final int calories;
+
+  Dish(String name, List<Ingredient> ingredients, int calories) {
+    this.name = name;
+    this.ingredients = ingredients;
+    this.calories = calories;
+  }
 }
 
 public class Main {
-    public static void main(String[] args) {
-        Car theOriginal = new Car(10, 0);
-        // Car theCopy = new Car(theOriginal.cost, theOriginal.mileage);
-    }
+  public static void main(String[] args) {
+    Dish theOriginal = new Dish(
+        "Ratatouille",
+        List.of(Eggplant, Zucchini, Tomatoes, Carrot, Garlic, Onion, Herbs, OliveOil),
+        140
+    );
+    // Car theCopy = new Car(theOriginal.cost, theOriginal.mileage);
+  }
 }

@@ -1,9 +1,18 @@
-package codes.isuru.kotlin.creational.prototype.solution
+package io.github.xxfast.design.patterns.creational.prototype.solution
 
-data class Car(
-  private val cost: Int,
-  private val mileage: Long
+import io.github.xxfast.design.patterns.creational.prototype.Ingredient
+import io.github.xxfast.design.patterns.creational.prototype.Ingredient.*
+
+data class Dish(
+  val name: String,
+  private val ingredients: List<Ingredient>,
+  private val calories: Int,
 )
 
-val theOriginal = Car(10, 10)
-val theCopy = theOriginal.copy()
+val theOriginal = Dish(
+  "Ratatouille",
+  listOf(Eggplant, Zucchini, Tomatoes, Carrot, Garlic, Onion, Herbs, OliveOil),
+  140
+)
+
+val theCopy = theOriginal.copy(name = "Diet ${theOriginal.name}", calories = 120)

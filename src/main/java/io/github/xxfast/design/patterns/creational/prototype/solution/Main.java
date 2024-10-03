@@ -1,42 +1,54 @@
-package codes.isuru.java.creational.prototype.solution;
+package io.github.xxfast.design.patterns.creational.prototype.solution;
 
+import io.github.xxfast.design.patterns.creational.prototype.Ingredient;
+import java.util.List;
+import static io.github.xxfast.design.patterns.creational.prototype.Ingredient.*;
 
-class Car implements Cloneable {
-    private final int cost;
-    private final long mileage;
+class Dish implements Cloneable {
+  private final String name;
+  private final List<Ingredient> ingredients;
+  private final long calories;
 
-    public Car(int cost, long mileage) {
-        this.cost = cost;
-        this.mileage = mileage;
-    }
+  Dish(String name, List<Ingredient> ingredients, long calories) {
+    this.name = name;
+    this.ingredients = ingredients;
+    this.calories = calories;
+  }
 
-    @SuppressWarnings("MethodDoesntCallSuperMethod") // 🤷‍
-    @Override public Car clone() {
-        return new Car(this.cost, this.mileage);
-    }
+  @SuppressWarnings("MethodDoesntCallSuperMethod") // 🤷‍
+  @Override
+  public Dish clone() {
+    return new Dish(this.name, this.ingredients, this.calories);
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
 
-        Car car = (Car) o;
+    Dish car = (Dish) o;
+    if (!name.equals(car.name)) return false;
+    if (ingredients != car.ingredients) return false;
+    return calories == car.calories;
+  }
 
-        if (cost != car.cost) return false;
-        return mileage == car.mileage;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = cost;
-        result = 31 * result + (int) (mileage ^ (mileage >>> 32));
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = name.hashCode();
+    result = 31 * result + ingredients.hashCode();
+    result = 31 * result + Long.hashCode(calories);
+    return result;
+  }
 }
 
 public class Main {
-    public static void main(String[] args){
-        Car theOriginal = new Car(10, 0);
-        Car theCopy = theOriginal.clone();
-    }
+  public static void main(String[] args) {
+    Dish theOriginal = new Dish(
+        "Ratatouille",
+        List.of(Eggplant, Zucchini, Tomatoes, Carrot, Garlic, Onion, Herbs, OliveOil),
+        140
+    );
+
+    Dish theCopy = theOriginal.clone();
+  }
 }
