@@ -8,20 +8,20 @@ import io.github.xxfast.design.java.structural.adapter.Socket
 import io.github.xxfast.design.java.structural.adapter.Vacuum
 
 fun Socket<IPlug>.plug(appliance: Appliance<GPlug>) {
-  val adapter: Appliance<IPlug> = object : Appliance<IPlug>() {
+  class Adapter: Appliance<IPlug>() {
     override fun setPowered(powered: Boolean) {
       super.setPowered(powered)
       appliance.isPowered = powered
     }
   }
-
+  val adapter: Appliance<IPlug> = Adapter()
   this.plug(adapter)
 }
 
 fun main() {
   val iron = Iron()
   val vacuum: Appliance<GPlug> = Vacuum()
-  val socket = Socket<IPlug>()
+  val socket: Socket<IPlug> = Socket()
 
   socket.plug(iron)
   socket.plug(vacuum)
