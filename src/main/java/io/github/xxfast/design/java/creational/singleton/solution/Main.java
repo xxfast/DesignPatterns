@@ -1,23 +1,20 @@
 package io.github.xxfast.design.java.creational.singleton.solution;
 
-import io.github.xxfast.design.java.creational.singleton.Batman;
-import io.github.xxfast.design.java.creational.singleton.Car;
+import io.github.xxfast.design.java.creational.singleton.Chef;
 
-final class BatMobile extends Car {
-    private static volatile BatMobile instance;
-    private final Batman theBatman;
+final class MasterChef extends Chef {
+    private static volatile MasterChef instance;
 
-    private BatMobile() {
-        super(Integer.MAX_VALUE, 0);
-        this.theBatman = new Batman();
+    private MasterChef() {
+        super("The One Who Remained", Integer.MAX_VALUE);
     }
 
-    public static BatMobile getInstance() {
-        BatMobile previousInstance = instance;
+    public static MasterChef getInstance() {
+        MasterChef previousInstance = instance;
         if(previousInstance != null) return previousInstance;
-        synchronized (BatMobile.class){
+        synchronized (MasterChef.class){
             if(instance == null){
-                instance = new BatMobile();
+                instance = new MasterChef();
             }
             return instance;
         }
@@ -26,7 +23,8 @@ final class BatMobile extends Car {
 
 public class Main {
     public static void main(String[] args) {
-        BatMobile theBatMobile = BatMobile.getInstance();
-        BatMobile anotherBatMobile = BatMobile.getInstance();
+        Chef chef = MasterChef.getInstance();
+        Chef anotherChef = MasterChef.getInstance();
+        assert chef == anotherChef;
     }
 }

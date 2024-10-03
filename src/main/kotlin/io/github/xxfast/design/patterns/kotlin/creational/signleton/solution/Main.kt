@@ -1,15 +1,17 @@
 package io.github.xxfast.design.patterns.kotlin.creational.signleton.solution
 
-import io.github.xxfast.design.java.creational.singleton.Batman
+interface Chef {
+  val name: String
+  val experience: Int
+}
 
-val theBatman = Batman()
-
-object BatMobile {
-    private val driver: Batman = theBatman
+object MasterChef: Chef {
+  override val name: String = "The One Who Remains"
+  override val experience: Int = Int.MAX_VALUE
 }
 
 fun main() {
-    val theBatMobile = BatMobile
-    val anotherBatMobile = BatMobile
-    assert(theBatMobile === anotherBatMobile)
+  val chef = MasterChef
+  val anotherChef = MasterChef
+  assert(chef === anotherChef)
 }
