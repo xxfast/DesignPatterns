@@ -6,13 +6,12 @@ import io.github.xxfast.design.java.creational.builders.shared.Candle
 import io.github.xxfast.design.java.creational.builders.shared.Topper
 
 sealed interface CakeRecipe
-data class VanillaCakeRecipe(val containsEggs: Boolean) :
-  io.github.xxfast.design.patterns.kotlin.creational.builder.solution.CakeRecipe
 
-fun Cake(recipe: io.github.xxfast.design.patterns.kotlin.creational.builder.solution.CakeRecipe) =
-  _root_ide_package_.io.github.xxfast.design.patterns.kotlin.creational.builder.solution.Cake(
-    isDairyFree = recipe is io.github.xxfast.design.patterns.kotlin.creational.builder.solution.VanillaCakeRecipe && recipe.containsEggs,
-  )
+data class VanillaCakeRecipe(val containsEggs: Boolean) : CakeRecipe
+
+fun Cake(recipe: CakeRecipe) = Cake(
+  isDairyFree = recipe is VanillaCakeRecipe && recipe.containsEggs,
+)
 
 class Cake(
   val layers: List<Layers> = List(4) { Layers() },
@@ -23,5 +22,4 @@ class Cake(
   val sponge: Sponge = Sponge()
 )
 
-val car =
-  _root_ide_package_.io.github.xxfast.design.patterns.kotlin.creational.builder.solution.Cake(isDairyFree = true)
+val car = Cake(isDairyFree = true)
