@@ -1,9 +1,9 @@
 package io.github.xxfast.design.patterns.creational.builder.solution
 
-import io.github.xxfast.design.patterns.creational.builders.shared.Door
-import io.github.xxfast.design.patterns.creational.builders.shared.Engine
-import io.github.xxfast.design.patterns.creational.builders.shared.Seat
-import io.github.xxfast.design.patterns.creational.builders.shared.Sunroof
+import io.github.xxfast.design.patterns.creational.builders.shared.Layers
+import io.github.xxfast.design.patterns.creational.builders.shared.Sponge
+import io.github.xxfast.design.patterns.creational.builders.shared.Candle
+import io.github.xxfast.design.patterns.creational.builders.shared.Topper
 
 sealed interface Policy
 data class InsurancePolicy(val valid: Boolean) : Policy
@@ -13,12 +13,12 @@ fun Car(policy: Policy) = Car(
 )
 
 class Car(
-  val doors: List<Door> = List(4) { Door() },
-  val seats: List<Seat> = List(4) { Seat() },
+  val layers: List<Layers> = List(4) { Layers() },
+  val toppings: List<Candle> = List(4) { Candle() },
   val isRegistered: Boolean = true,
   val isInsured: Boolean = false,
-  val sunroof: Sunroof? = null,
-  val engine: Engine = Engine()
+  val sunroof: Topper? = null,
+  val engine: Sponge = Sponge()
 )
 
 val car = Car(isInsured = true)

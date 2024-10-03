@@ -6,63 +6,63 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-class CarBuilder {
-  private List<Door> doors = List.of(new Door [] { new Door() });
-  private List<Seat> seats;
-  private Boolean isRegistered;
-  private Boolean isInsured;
-  @Nullable private Sunroof sunroof;
-  private Engine engine;
+class CakeBuilder {
+  private List<Layers> layers = List.of(new Layers[] { new Layers() });
+  private List<Candle> candles;
+  private boolean isGluttonFree;
+  private boolean isDairyFree;
+  @Nullable private Topper topper;
+  private Sponge sponge;
 
-  public CarBuilder(Engine engine) {
-    this.engine = engine;
+  public CakeBuilder(Sponge sponge) {
+    this.sponge = sponge;
   }
 
-  public CarBuilder setDoors(List<Door> doors) {
-    this.doors = doors;
+  public CakeBuilder setDoors(List<Layers> layers) {
+    this.layers = layers;
     return this;
   }
 
-  public CarBuilder setSeats(List<Seat> seats) {
-    this.seats = seats;
+  public CakeBuilder setCandles(List<Candle> candles) {
+    this.candles = candles;
     return this;
   }
 
-  public CarBuilder isRegistered(Boolean isRegistered) {
-    this.isRegistered = isRegistered;
+  public CakeBuilder isGluttonFree(Boolean isGluttonFree) {
+    this.isGluttonFree = isGluttonFree;
     return this;
   }
 
-  public CarBuilder isInsured(Boolean isInsured) {
-    this.isInsured = isInsured;
+  public CakeBuilder isDairyFree(Boolean isDairyFree) {
+    this.isDairyFree = isDairyFree;
     return this;
   }
 
-  public CarBuilder setSunroof(@Nullable Sunroof sunroof) {
-    this.sunroof = sunroof;
+  public CakeBuilder setTopper(@Nullable Topper topper) {
+    this.topper = topper;
     return this;
   }
 
-  public CarBuilder setEngine(@Nullable Engine engine) {
-    this.engine = engine;
+  public CakeBuilder setSponge(@Nullable Sponge sponge) {
+    this.sponge = sponge;
     return this;
   }
 
-  public Car build() {
-    return new Car(this.doors, this.seats, this.sunroof, this.engine);
+  public Cake bake() {
+    return new Cake(this.layers, this.candles, this.isGluttonFree, this.isDairyFree, this.topper, this.sponge);
   }
 }
 
 public class Main {
   public static void main(String[] args) {
-    CarBuilder myBuilder = new CarBuilder(new Engine());
+    CakeBuilder builder = new CakeBuilder(new Sponge());
 
-    Car madeAGasCar = myBuilder
-      .setSeats(new ArrayList<>())
+    Cake lie = builder
+      .setCandles(new ArrayList<>())
       .setDoors(new ArrayList<>())
-      .setSunroof(new Sunroof())
-      .build();
+      .setTopper(new Topper())
+      .bake();
 
-    System.out.println(madeAGasCar);
+    System.out.println(lie);
   }
 }

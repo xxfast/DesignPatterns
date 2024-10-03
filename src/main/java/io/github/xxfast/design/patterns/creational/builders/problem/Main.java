@@ -1,18 +1,17 @@
 package io.github.xxfast.design.patterns.creational.builders.problem;
 
 
-import io.github.xxfast.design.patterns.creational.builders.shared.Car;
-import io.github.xxfast.design.patterns.creational.builders.shared.Door;
-import io.github.xxfast.design.patterns.creational.builders.shared.Seat;
-import io.github.xxfast.design.patterns.creational.builders.shared.Wheel;
+import io.github.xxfast.design.patterns.creational.builders.shared.Cake;
+import io.github.xxfast.design.patterns.creational.builders.shared.Layers;
+import io.github.xxfast.design.patterns.creational.builders.shared.Candle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class Main {
   public static void main(String[] args) {
-    List<Door> doors = new ArrayList<>();
-    List<Seat> seats = new ArrayList<>();
-    Car myCar = new Car(doors, seats, null, null);
+    List<Layers> layers = new ArrayList<>();
+    List<Candle> candles = new ArrayList<>();
+    Cake cake = new Cake(layers, candles, false, true, null, null);
   }
 }
