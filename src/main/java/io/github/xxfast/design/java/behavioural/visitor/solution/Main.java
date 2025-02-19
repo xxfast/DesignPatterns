@@ -1,78 +1,112 @@
 package io.github.xxfast.design.java.behavioural.visitor.solution;
 
-interface Inspectable {
-    String inspect(Inspection inspection);
+interface Hauntable {
+    String haunt(Haunting haunting);
 }
 
-interface Inspection {
-
-    String inspect(Car car);
-
-    String inspect(Hauler hauler);
+interface Haunting {
+    String haunt(Kitchen kitchen);
+    String haunt(Stairs stairs);
+    String haunt(Boiler boiler);
+    String haunt(Bulkhead bulkhead);
+    String haunt(Room hauler);
 }
 
+abstract class Compartment implements Hauntable { }
 
-abstract class Vehicle implements Inspectable { }
-
-class Car extends Vehicle implements Inspectable {
+class Kitchen extends Compartment implements Hauntable {
     @Override
-    public String inspect(Inspection inspection) {
-        return inspection.inspect(this);
-    }
-}
-
-class Hauler extends Vehicle implements Inspectable {
-    private final Vehicle[] inventory;
-
-    public Hauler(Vehicle[] inventory) {
-        this.inventory = inventory;
-    }
-
-    public Vehicle[] getInventory() {
-        return inventory;
-    }
-
-    @Override
-    public String inspect(Inspection inspection) {
-        return inspection.inspect(this);
+    public String haunt(Haunting haunting) {
+        return haunting.haunt(this);
     }
 }
 
-class VehicleInspection implements Inspection {
+class Stairs extends Compartment implements Hauntable {
     @Override
-    public String inspect(Car car) {
-        return "🚗";
+    public String haunt(Haunting haunting) {
+        return haunting.haunt(this);
+    }
+}
+
+class Boiler extends Compartment implements Hauntable {
+    @Override
+    public String haunt(Haunting haunting) {
+        return haunting.haunt(this);
+    }
+}
+
+class Bulkhead extends Compartment implements Hauntable {
+    @Override
+    public String haunt(Haunting haunting) {
+        return haunting.haunt(this);
+    }
+}
+
+class Room extends Compartment implements Hauntable {
+    final String name;
+    final Compartment[] compartments;
+
+    public Room(String name, Compartment[] compartments) {
+      this.name = name;
+      this.compartments = compartments;
     }
 
     @Override
-    public String inspect(Hauler hauler) {
-        StringBuilder builder = new StringBuilder();
-        for (Vehicle vehicle : hauler.getInventory()) {
-            builder.append(vehicle.inspect(this));
+    public String haunt(Haunting haunting) {
+        return haunting.haunt(this);
+    }
+}
+
+class Ghost implements Haunting {
+    @Override
+    public String haunt(Kitchen kitchen) {
+        return "🍽️ The ghost is rattling the dishes";
+    }
+
+    @Override
+    public String haunt(Stairs stairs) {
+        return "🪜 the stairs are creaking";
+    }
+
+    @Override
+    public String haunt(Boiler boiler) {
+        return "🫥 the boiler is clinking";
+    }
+
+    @Override
+    public String haunt(Bulkhead bulkhead) {
+        return "🚪 the bulkhead doors are rattling";
+    }
+
+    @Override
+    public String haunt(Room room) {
+        StringBuilder builder =
+            new StringBuilder("👻 Noises coming from the " + room.name);
+        builder.append("\n");
+        for (int i = 0; i < room.compartments.length; i++) {
+            builder.append(room.compartments[i].haunt(this));
+            if (i != room.compartments.length - 1) builder.append("\n");
         }
-        return "🚚 (" + builder + ")";
+        return builder.toString();
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Hauler smallerHaler = new Hauler(
-                new Vehicle[]{
-                        new Car(),
-                        new Car(),
-                        new Car()
-                }
+        Room basement = new Room(
+            "basement",
+            new Compartment[]{
+                new Stairs(),
+                new Boiler(),
+                new Bulkhead()
+            }
         );
 
-        Hauler biggerHauler = new Hauler(
-                new Vehicle[]{
-                        new Car(),
-                        new Car(),
-                        smallerHaler
-                }
-        );
+        Kitchen kitchen = new Kitchen();
 
-        VehicleInspection inspection = new VehicleInspection();
-        System.out.println(inspection.inspect(biggerHauler));
+        Room house = new Room("house", new Compartment[]{basement, kitchen});
+
+        Ghost ghost = new Ghost();
+        System.out.println(ghost.haunt(house));
     }
 }

@@ -1,58 +1,57 @@
 package io.github.xxfast.design.java.behavioural.visitor.problem;
 
-class Vehicle { }
+class Compartment { }
+class Kitchen extends Compartment { }
+class Stairs extends Compartment { }
+class Boiler extends Compartment { }
+class Bulkhead extends Compartment { }
 
-class Car extends Vehicle {}
+class Room extends Compartment {
+  String name;
+  final Compartment[] compartments;
 
-class Hauler extends Vehicle {
-    private final Vehicle[] inventory;
-
-    public Hauler(Vehicle[] inventory) {
-        this.inventory = inventory;
-    }
-
-    public Vehicle[] getInventory() {
-        return inventory;
-    }
+  public Room(
+      String name,
+      Compartment[] compartments
+  ) {
+    this.name = name;
+    this.compartments = compartments;
+  }
 }
 
-class VehicleInspector {
-    static String inspect(Vehicle vehicle) {
-        return "❓";
-    }
+class Ghost {
+  String haunt(Compartment compartment) { return "🤔 The ghost is lost";}
+  String haunt(Kitchen kitchen) { return "🍽️ The dishes are rattling"; }
+  String haunt(Stairs stairs) { return "🪜 the stairs are creaking";}
+  String haunt(Boiler boiler) { return "🫥 the boiler is clinking"; }
+  String haunt(Bulkhead bulkhead) { return "🚪 the bulkhead doors are rattling"; }
 
-    static String inspect(Car car) {
-        return "🚗";
-    }
+  String haunt(Room room) {
+    StringBuilder builder =
+        new StringBuilder("👻 Noises coming from the " + room.name);
 
-    static String inspect(Hauler hauler) {
-        StringBuilder builder = new StringBuilder();
-        for (Vehicle vehicle : hauler.getInventory()) {
-            builder.append(inspect(vehicle));
-        }
-        return "🚚 (" + builder + ")";
+    builder.append("\n");
+    for (int i = 0; i < room.compartments.length; i++) {
+      Compartment compartment = room.compartments[i];
+      builder.append(haunt(compartment));
+      if (i != room.compartments.length - 1) builder.append("\n");
     }
+    return builder.toString();
+  }
 }
 
 public class Main {
-    public static void main(String[] args) {
-        Hauler smallerHaler = new Hauler(
-                new Vehicle[]{
-                        new Car(),
-                        new Car(),
-                        new Car()
-                }
-        );
+  public static void main(String[] args) {
+    Room basement = new Room(
+        "basement",
+        new Compartment[]{ new Stairs(), new Boiler(), new Bulkhead() }
+    );
 
-        Hauler biggerHauler = new Hauler(
-                new Vehicle[]{
-                        new Car(),
-                        new Car(),
-                        smallerHaler
-                }
-        );
+    Kitchen kitchen = new Kitchen();
 
-        String inspection = VehicleInspector.inspect(biggerHauler);
-        System.out.println(inspection);
-    }
+    Room house = new Room("house", new Compartment[]{ basement, kitchen });
+
+    Ghost ghost = new Ghost();
+    System.out.println(ghost.haunt(house));
+  }
 }

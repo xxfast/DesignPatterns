@@ -2,7 +2,7 @@ package io.github.xxfast.design.java.creational.singleton.solution;
 
 import io.github.xxfast.design.java.creational.singleton.Chef;
 
-final class MasterChef extends Chef {
+class MasterChef extends Chef {
     private static volatile MasterChef instance;
 
     private MasterChef() {
@@ -11,7 +11,8 @@ final class MasterChef extends Chef {
 
     public static MasterChef getInstance() {
         MasterChef previousInstance = instance;
-        if(previousInstance != null) return previousInstance;
+        if(previousInstance != null)
+            return previousInstance;
         synchronized (MasterChef.class){
             if(instance == null){
                 instance = new MasterChef();

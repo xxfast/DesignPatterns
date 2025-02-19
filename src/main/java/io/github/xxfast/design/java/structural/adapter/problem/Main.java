@@ -14,9 +14,9 @@ public class Main {
     Socket<IPlug> socket = new Socket<>();
 
     socket.plug(iron);
-    // socket.plug(vacuum); // Compilation error :(
+//    socket.plug(vacuum); won't compile
     socket.turnOn();
 
-    System.out.println(vacuum.isPowered()); // false
+    System.out.println(vacuum.isPowered); // false
   }
 }

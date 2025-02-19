@@ -7,7 +7,7 @@ public class Socket<T extends Plug> {
   }
 
   public void turnOn() {
-    appliance.setPowered(true);
+    appliance.isPowered = true;
   }
 }
 

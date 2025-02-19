@@ -3,11 +3,10 @@ package io.github.xxfast.design.java.creational.builders.solution;
 import io.github.xxfast.design.java.creational.builders.shared.*;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class CakeBuilder {
-  private List<Layers> layers = List.of(new Layers[] { new Layers() });
+  private List<Layers> layers = List.of(new Layers[]{new Layers()});
   private List<Candle> candles;
   private boolean isGluttonFree;
   private boolean isDairyFree;
@@ -18,7 +17,7 @@ class CakeBuilder {
     this.sponge = sponge;
   }
 
-  public CakeBuilder setDoors(List<Layers> layers) {
+  public CakeBuilder setLayers(List<Layers> layers) {
     this.layers = layers;
     return this;
   }
@@ -58,10 +57,10 @@ public class Main {
     CakeBuilder builder = new CakeBuilder(new Sponge());
 
     Cake lie = builder
-      .setCandles(new ArrayList<>())
-      .setDoors(new ArrayList<>())
-      .setTopper(new Topper())
-      .bake();
+        .isGluttonFree(true)
+        .isDairyFree(false)
+        .setTopper(new Topper())
+        .bake();
 
     System.out.println(lie);
   }

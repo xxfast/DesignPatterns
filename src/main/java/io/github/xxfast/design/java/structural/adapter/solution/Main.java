@@ -15,7 +15,5 @@ public class Main {
     socket.plug(adapter);
 
     socket.turnOn();
-
-    System.out.println(vacuum.isPowered()); // true
   }
 }
